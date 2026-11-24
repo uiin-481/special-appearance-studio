@@ -1,0 +1,66 @@
+/* V12.19.3 — tabletop display: front-up, parallel with the book, no crop. */
+#v12191-dock{
+  position:fixed;
+  left:clamp(16px,2vw,40px);
+  top:clamp(105px,17vh,180px);
+  bottom:auto;
+  width:clamp(275px,28.5vw,480px);
+  height:clamp(335px,33vw,510px);
+  z-index:26;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  isolation:isolate;pointer-events:none;color:#f1e7da;
+  font-family:system-ui,-apple-system,sans-serif;
+  transition:opacity .24s ease;
+}
+#v12191-dock[hidden]{display:none!important}
+/* A soft diffuse shadow below the 3D walkman; actual mesh casts a shadow too. */
+#v12191-dock::before{
+  content:'';position:absolute;left:11%;right:11%;bottom:34px;height:68px;
+  border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.54),rgba(0,0,0,.29) 39%,transparent 78%);
+  transform:rotate(-2deg) scaleX(1.05);filter:blur(17px);pointer-events:none;z-index:-1;
+}
+#v12191-canvas{
+  display:block;width:100%;height:auto;flex:1;min-height:0;touch-action:none;
+  cursor:pointer;pointer-events:auto;outline:none;
+  /* Actual 3D cast-shadow from WebGL; avoid a second outline-shaped shadow. */
+}
+#v12191-canvas:active{cursor:pointer}
+#v12191-dock .v12191-meta{
+  pointer-events:auto;display:flex;align-items:center;gap:10px;box-sizing:border-box;
+  min-width:158px;max-width:91%;padding:7px 9px 7px 15px;
+  border:1px solid rgba(203,171,119,.43);border-radius:30px;
+  background:linear-gradient(110deg,rgba(39,28,36,.95),rgba(27,22,30,.88));
+  box-shadow:0 9px 25px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,232,192,.12);
+  backdrop-filter:blur(14px);
+}
+#v12191-title{font-size:12px;font-weight:600;letter-spacing:.018em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;min-width:0;flex:1;color:#edcf9e}
+#v12191-fallback{display:grid;place-items:center;flex:none;width:31px;height:31px;padding:0;border:1px solid rgba(214,179,127,.34);border-radius:50%;background:rgba(225,187,129,.12);color:#f3dec0;font-size:12px;font-weight:700;cursor:pointer;transition:background .15s ease,transform .15s ease}
+#v12191-fallback:hover{background:rgba(225,187,129,.23);transform:scale(1.06)}
+#v12191-fallback:focus-visible,#v12191-canvas:focus-visible{outline:2px solid #e2bf85;outline-offset:2px}
+#v12191-status{pointer-events:none;font-size:10px;color:#f0d5b7;text-align:center;line-height:1.35;max-width:230px;text-shadow:0 2px 7px #151117}
+#v12191-status:empty{display:none}
+#v12191-dock:not(.is-ready) #v12191-canvas{opacity:.28}
+body.v1217-immersive #v12191-dock{opacity:0;pointer-events:none;visibility:hidden}
+body:has(#ppt:not([hidden])) #v12191-dock{display:none!important}
+body:has(#ppt:not([hidden])) .sa-music-controls{display:none!important}
+@media(max-width:1180px) and (min-width:741px){
+ #v12191-dock{left:12px;top:clamp(100px,16vh,170px);width:clamp(210px,24vw,310px);height:clamp(260px,29vw,365px)}
+ #v12191-title{max-width:160px}
+}
+@media(max-width:740px){
+ #v12191-dock{left:max(6px,env(safe-area-inset-left,0px));top:auto;bottom:calc(118px + env(safe-area-inset-bottom,0px));width:clamp(110px,30vw,174px);height:clamp(150px,38vw,205px)}
+ #v12191-dock::before{bottom:26px;height:28px;filter:blur(9px)}
+ #v12191-dock .v12191-meta{max-width:100%;gap:5px;padding:4px 5px 4px 8px;min-width:0}
+ #v12191-title{font-size:9px;max-width:109px}
+ #v12191-fallback{width:25px;height:25px;font-size:11px}
+}
+@media(max-height:570px) and (min-width:741px){
+ #v12191-dock{top:72px;width:min(23vw,244px);height:min(58vh,268px)}
+}
+@media(prefers-reduced-motion:reduce){#v12191-dock,#v12191-fallback{transition:none}}
+
+/* No Walkman and no title/placeholder before the book intro fully fades out. */
+html:not(.sa-reader-intro-finished) #v12191-dock{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+html:not(.sa-reader-intro-finished) #v12191-dock *{pointer-events:none!important}
+/* The song information bar can be placed anywhere in the viewport independently of the model. */
+#v12191-dock .v12191-meta{position:fixed;z-index:29;left:var(--sa-music-x,3vw);top:var(--sa-music-y,78vh);right:auto;bottom:auto;transform:none;max-width:min(270px,80vw);}

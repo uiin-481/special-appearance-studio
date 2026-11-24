@@ -1,0 +1,85 @@
+/* V12.18: refined hybrid shell: Canva navigation + Penpot inspector + tldraw canvas space.
+   Purple/gold palette; never removes project controls or their JavaScript handlers. */
+.ppt.hybrid-editor{--hybrid-rail-width:62px;--hybrid-purple:#432c50;--hybrid-gold:#ba9770;color:#392b40;background:#edeaf0}
+.ppt.hybrid-editor .ppt-topbar{background:#fcfbfd;border-bottom:1px solid #e8e0e9;box-shadow:0 3px 16px rgba(48,29,59,.045)}
+.ppt.hybrid-editor button:focus-visible,.ppt.hybrid-editor summary:focus-visible{outline:2px solid #a576b4;outline-offset:2px}
+.hybrid-rail{display:none}
+.hybrid-view-menu,.hybrid-export-menu{position:relative;flex:none;font-size:11px;align-self:flex-start}
+.hybrid-view-menu summary,.hybrid-export-menu summary{list-style:none;cursor:pointer;border:1px solid #e0d5e5;background:#f8f3fa;border-radius:9px;padding:7px 10px;white-space:nowrap;color:#5c4369;font-weight:700}
+.hybrid-view-menu summary::-webkit-details-marker,.hybrid-export-menu summary::-webkit-details-marker{display:none}
+.hybrid-view-contents,.hybrid-export-contents{position:absolute;top:calc(100% + 7px);right:0;background:#fff;box-shadow:0 16px 40px #27153126;border:1px solid #ddd1e1;padding:12px;border-radius:14px;width:180px;z-index:45;display:grid;gap:8px}
+.hybrid-view-contents>b,.hybrid-export-contents>b{font-size:12px;color:#4d345c}
+.hybrid-view-contents .v1210-layout-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.hybrid-view-contents .v1210-layout-actions button{border:1px solid #e3d9e8;border-radius:8px;background:#faf7fc;color:#664d71;padding:7px 4px;font-size:11px;min-height:32px}
+.hybrid-view-contents .v1210-layout-actions #toggleCompactMode{grid-column:1/-1}
+.hybrid-selection-caption{font-size:12px;font-weight:750;color:#7c6685;padding:7px 7px;white-space:nowrap;border-right:1px solid #e3d9e8;margin-right:3px}
+.ppt.hybrid-editor .ppt-actions button.primary-action{background:#432e51;border-color:#432e51;color:#fff3dd;box-shadow:0 2px 6px #432e5118}
+.ppt.hybrid-editor .ppt-actions #closeStudio{border:1px solid #d8c8df;background:#faf6fb;color:#4d385a}
+.ppt.hybrid-editor .ppt-left,.ppt.hybrid-editor .ppt-right{background:#fcfbfd}
+.ppt.hybrid-editor .ppt-center{background:#ebe8ef}
+.ppt.hybrid-editor .canvas-center{background:radial-gradient(ellipse at 50% 45%,#f4f1f5 0%,#e9e5ed 73%)}
+.ppt.hybrid-editor .ppt-right .right-tab.selected{color:#4e355b;border-color:#a889bb;background:#eee5f4}
+.ppt.hybrid-editor .ppt-bottom{background:#fbfafc;border-color:#e5dce8}
+@media(min-width:801px){
+ .ppt.hybrid-editor .ppt-topbar{grid-template-columns:130px minmax(0,1fr) auto;gap:11px;height:var(--studio-top-size,88px);min-height:74px}
+ .ppt.hybrid-editor .ppt-brand{grid-column:1;grid-row:1;align-items:center}
+ .ppt.hybrid-editor .ppt-tools{grid-column:2;grid-row:1;align-items:center;align-content:start;justify-content:flex-start;padding-top:5px;gap:5px}
+ .ppt.hybrid-editor .ppt-actions{grid-column:3;grid-row:1;min-width:0;max-width:min(425px,35vw);align-content:start;gap:5px;padding-top:3px}
+ .ppt.hybrid-editor .ppt-actions button{min-height:32px;border-radius:9px}
+ .ppt.hybrid-editor .ppt-actions .v122-quality{display:none}
+ .ppt.hybrid-editor .ppt-tools #addText,.ppt.hybrid-editor .ppt-tools #addPhoto,.ppt.hybrid-editor .ppt-tools #addShape,.ppt.hybrid-editor .ppt-tools #addVideo,.ppt.hybrid-editor .ppt-tools #addAudio,.ppt.hybrid-editor .ppt-tools #importFont{display:none}
+ .ppt.hybrid-editor .ppt-tools #replaceCoverPhoto{display:none}
+ .ppt.hybrid-editor[data-hybrid-page="cover"] .ppt-tools #replaceCoverPhoto{display:inline-flex}
+ .ppt.hybrid-editor .ppt-tools #replaceSelectedPhotos{display:none}
+ .ppt.hybrid-editor[data-hybrid-selection="image"] .ppt-tools #replaceSelectedPhotos{display:inline-flex}
+ .ppt.hybrid-editor .ppt-tools #fontFamily,.ppt.hybrid-editor .ppt-tools .tiny-field,.ppt.hybrid-editor .ppt-tools .color-field{display:none}
+ .ppt.hybrid-editor[data-hybrid-selection="text"] .ppt-tools #fontFamily,.ppt.hybrid-editor[data-hybrid-selection="text"] .ppt-tools .tiny-field,.ppt.hybrid-editor[data-hybrid-selection="text"] .ppt-tools .color-field,.ppt.hybrid-editor[data-hybrid-selection="shape"] .ppt-tools .color-field{display:flex}
+ .ppt.hybrid-editor .ppt-body{grid-template-columns:var(--hybrid-rail-width) var(--studio-left-effective,206px) minmax(0,1fr) var(--studio-right-effective,292px)}
+ .ppt.hybrid-editor .ppt-left{grid-column:2}
+ .ppt.hybrid-editor .ppt-center{grid-column:3}
+ .ppt.hybrid-editor .ppt-right{grid-column:4}
+ .ppt.hybrid-editor .v1210-resize-left{left:calc(var(--hybrid-rail-width) + var(--studio-left-effective,206px))}
+ .ppt.hybrid-editor .v1210-resize-right{left:calc(100% - var(--studio-right-effective,292px))}
+ .ppt.hybrid-editor .ppt-topbar .v1210-resize-top{grid-column:1/-1}
+ .ppt.hybrid-editor .ppt-left .sidebar-foot{display:none}
+ .hybrid-rail{display:flex;background:#fbf9fd;border-right:1px solid #e2d8e7;min-width:0;grid-column:1;grid-row:1;flex-direction:column;align-items:stretch;gap:3px;padding:10px 5px 8px;overflow-y:auto;overflow-x:visible;scrollbar-width:thin;z-index:4}
+ .hybrid-rail-button,.hybrid-rail-more>summary{display:flex;flex:none;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:49px;padding:5px 2px;border:1px solid transparent;background:transparent;color:#695471;border-radius:10px;cursor:pointer;text-decoration:none;line-height:1.1}
+ .hybrid-rail-button:hover,.hybrid-rail-button.active,.hybrid-rail-more[open]>summary,.hybrid-rail-more>summary:hover{background:#f0e7f5;border-color:#d9c7e3;color:#4b3358}
+ .hybrid-rail-glyph,.hybrid-rail-more>summary>span{font-size:18px;line-height:20px;font-weight:550}
+ .hybrid-rail-button small,.hybrid-rail-more small{font-size:10px;font-weight:680}
+ .hybrid-rail-spacer{flex:1;min-height:8px}
+ .hybrid-rail-more{position:relative;flex:none}
+ .hybrid-rail-more>summary{list-style:none}.hybrid-rail-more>summary::-webkit-details-marker{display:none}
+ .hybrid-rail-menu{position:fixed;left:65px;bottom:20px;z-index:200;display:flex;flex-direction:column;width:208px;gap:5px;padding:12px;border:1px solid #d8c5e1;background:white;border-radius:14px;box-shadow:0 16px 40px #2d20394d}
+ .hybrid-rail-menu strong{color:#5e4270;font-size:12px;padding:3px 5px 6px}
+ .hybrid-rail-menu button{width:100%;text-align:left;border:1px solid #eee4ef;background:#faf7fb;color:#4b3855;border-radius:8px;padding:9px 8px}
+ .hybrid-rail-menu button:hover{background:#eee5f4}
+ .v1213-page-card.v1218-bookend{border-color:#c2a980;cursor:grab}
+ .v1213-page-card.v1218-bookend[aria-pressed="true"]{outline:2px solid #b08d5b;outline-offset:1px;background:#f4eddf}
+ .v1213-page-card.v1218-bookend.v1213-drag-over{outline:3px dashed #ad865f}
+}
+@media(max-width:800px){
+ .hybrid-rail{display:none!important}
+ .ppt.hybrid-editor .ppt-topbar{background:#fcfbfd}
+ .ppt.hybrid-editor .hybrid-view-menu{display:none}
+ .ppt.hybrid-editor .ppt-tools{min-height:44px}
+ .hybrid-selection-caption{display:none}
+ .v1213-controls #pageOverviewMakeCover,.v1213-controls #pageOverviewMakeBack,.v1213-controls #pageOverviewSwapEnds{white-space:normal}
+}
+/* Fix inherited mobile reader rule which hides the editor-entry button.
+   Only studio.html loads this stylesheet; the public reader homepage stays clean. */
+@media(max-width:800px){
+ body>.top #openStudio{display:inline-flex!important;align-items:center;justify-content:center;font-size:11px;padding:7px 9px;min-height:35px;white-space:nowrap}
+}
+
+/* Compact export menu (reader-quality control and both export buttons preserved). */
+.hybrid-export-contents{min-width:240px;display:flex;flex-direction:column;gap:8px}
+.hybrid-export-contents>.v122-quality{display:flex!important;gap:7px;align-items:center;justify-content:space-between;font-size:11px}
+.hybrid-export-contents>.v122-quality select{max-width:125px}
+.hybrid-export-contents #exportZip,.hybrid-export-contents #exportEditableSite{display:block!important;width:100%;min-height:36px;text-align:left;white-space:normal}
+.hybrid-export-menu>summary{background:#432e51!important;border-color:#432e51!important;color:#fff4df!important;font-weight:750}
+@media(max-width:800px){
+ .ppt.hybrid-editor .hybrid-export-menu{display:block;align-self:center}
+ .hybrid-export-contents{right:0;left:auto;min-width:218px;max-width:85vw}
+ .ppt.hybrid-editor .hybrid-export-contents>.v122-quality{display:flex!important}
+}

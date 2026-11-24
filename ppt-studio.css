@@ -1,0 +1,396 @@
+/* V9 — independent PowerPoint-style overlay; original hardcover renderer remains intact. */
+.studio-entry{padding:11px 18px;border-radius:25px;border:1px solid #d9b77e;background:#ddb983;color:#211727;font-weight:750;font-size:13px;cursor:pointer;pointer-events:auto;box-shadow:0 8px 26px #0005}
+.studio-entry:hover{background:#f7d6a0}
+.ppt[hidden], .right-scroll[hidden]{display:none!important}
+.ppt{position:fixed;inset:0;z-index:3000;display:flex;flex-direction:column;background:#f3f1f3;color:#30283a;font:14px/1.5 system-ui,'Microsoft YaHei',sans-serif;overflow:hidden;letter-spacing:0}
+.ppt *{box-sizing:border-box}
+.ppt button,.ppt select,.ppt input,.ppt textarea{font-family:inherit}
+.ppt button{cursor:pointer;transition:background .15s,border-color .15s}
+.ppt button:disabled{opacity:.4;cursor:not-allowed}
+.ppt-topbar{background:#fff;min-height:78px;padding:12px 18px;display:flex;align-items:center;gap:18px;box-shadow:0 1px 0 #e6e1e8;z-index:1;flex-wrap:wrap}
+.ppt-brand{display:flex;align-items:center;gap:12px;flex:none}.ppt-appicon{background:#2a1b35;color:#eed0a0;border-radius:12px;width:39px;height:39px;display:grid;place-items:center;font-size:21px}
+.ppt-brand b{font-size:16px;display:block;letter-spacing:.07em}.ppt-brand small{display:block;color:#8f8493;font-size:11px}
+.ppt-tools{flex:1;display:flex;flex-wrap:wrap;gap:5px;align-items:center;justify-content:center}
+.ppt-tools button,.ppt-actions button,.ppt-bottom button{background:white;border:1px solid #e0d9e3;border-radius:9px;padding:9px 12px;color:#42394b;font-size:12px;font-weight:650;white-space:nowrap}
+.ppt-tools button:hover,.ppt-actions button:hover,.ppt-bottom button:hover{background:#f1ebf6;border-color:#b8a8c5}
+.ppt-tools select{background:#fff;border:1px solid #e1d9e5;border-radius:8px;padding:9px 8px;min-width:130px;max-width:186px;color:#413846;font-size:12px}
+.tool-divider{height:25px;width:1px;background:#e1d9e4;margin:0 4px}
+.tiny-field{display:flex;align-items:center;background:#fff;border:1px solid #e0d9e3;border-radius:9px;padding:0 6px;gap:3px}.tiny-field input{width:43px;height:34px;border:0;background:transparent;color:#332c37;font-size:13px}.tiny-field span{font-size:11px;color:#928a9a}
+.color-field{display:grid;place-items:center;background:#fff;border-radius:9px;border:1px solid #e0d9e3;padding:4px}.color-field input{width:26px;height:26px;border:0;padding:0;background:transparent;cursor:pointer}
+.ppt-actions{display:flex;gap:7px;align-items:center}.ppt-actions button.primary-action{background:#3d2948;color:#fff;border-color:#3d2948}.ppt-actions button.primary-action:hover{background:#5f4170}.ppt-actions #closeStudio{background:#f7f2eb}
+.ppt-body{flex:1;display:grid;grid-template-columns:206px minmax(0,1fr) 292px;min-height:0}
+.ppt-left,.ppt-right{background:#fff;min-width:0;display:flex;flex-direction:column;min-height:0}
+.ppt-left{border-right:1px solid #e8e2e8}.ppt-right{border-left:1px solid #e8e2e8}
+.side-title,.right-head{display:flex;align-items:center;justify-content:space-between;padding:20px 16px 11px;gap:8px}
+.side-title strong,.right-head strong{font-size:15px}.side-title small,.right-head span{font-size:11px;color:#938999}
+.slide-list{overflow:auto;min-height:0;flex:1;padding:4px 13px;display:flex;flex-direction:column;gap:10px}
+.slide-item{border-radius:11px;background:#f8f7f8;border:2px solid transparent;padding:8px;display:flex;align-items:start;gap:8px;text-align:left;width:100%;color:#42384b;min-height:0}
+.slide-item:hover{background:#f1eaf4}.slide-item.active{border-color:#9d7eae;background:#f6eff8;box-shadow:0 1px 10px #7763831c}
+.slide-index{font-size:11px;color:#9d91a1;min-width:20px;padding-top:3px}.slide-info{flex:1;min-width:0}
+.slide-thumb{width:100%;aspect-ratio:880/1180;border-radius:4px;background:#faf5ed;box-shadow:0 2px 7px #60536a20;display:block;border:1px solid #dfd8dd}
+.slide-item .slide-name{display:block;font-size:11px;font-weight:700;margin-top:5px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slide-actions{border-top:1px solid #ede8ed;padding:12px;display:flex;flex-direction:column;gap:7px}
+.slide-actions button{border:1px solid #e0d9e5;border-radius:8px;background:#fdfbfd;padding:8px 5px;font-size:12px;color:#3f344a;flex:1}
+.slide-actions #addSpread{background:#493452;color:#fff;font-weight:700;border-color:#493452}.side-row{display:flex;gap:3px}
+.sidebar-foot,.right-foot{padding:11px 14px;background:#faf8fa;border-top:1px solid #ede8ed;color:#908798;font-size:11px;line-height:1.65}
+.ppt-center{min-width:0;min-height:0;display:flex;flex-direction:column;background:#eae8eb}
+.canvas-heading{display:flex;align-items:center;gap:22px;padding:13px 25px;color:#968d9b;font-size:12px;flex-wrap:wrap}
+.canvas-heading #editingLabel{font-weight:800;color:#43354b;font-size:14px}.canvas-hint{margin-left:auto;font-size:11px}
+.canvas-center{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:auto;padding:13px 20px 25px}
+.canvas-frame{height:min(100%,760px);aspect-ratio:880/1180;max-width:100%;flex:none;box-shadow:0 14px 65px #5746603b,0 0 0 1px #d7d0d8;position:relative;background:#f7f2e9}
+#editCanvas{display:block;width:100%;height:100%;touch-action:none;cursor:default}
+.ppt-bottom{border-top:1px solid #e0dae4;background:#fff;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:12px;flex-wrap:wrap}
+.ppt-bottom>div:first-child{display:flex;gap:7px}.saved-status{color:#698070;font-size:11px}
+.right-head{padding:20px 18px 16px}.right-tabs{display:flex;gap:5px;padding:0 13px 12px}
+.right-tab{border-radius:8px;background:#f5f2f6;color:#79707d;border:0;padding:9px 15px;font-weight:700;font-size:12px;flex:1}
+.right-tab.selected{background:#eee6f3;color:#583b69;box-shadow:inset 0 0 0 1px #d6c6dd}
+.right-scroll{overflow-y:auto;flex:1;min-height:0;padding:0 13px 18px}
+.tpl-intro{font-size:12px;line-height:1.75;color:#827888;padding:8px 5px 13px}
+.template-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.template-card{border:1px solid #e5dee5;border-radius:12px;padding:7px;text-align:left;background:#fff;color:#42354c;min-width:0}
+.template-card:hover{border-color:#9b7daa;background:#faf8fc;transform:translateY(-1px)}
+.template-card canvas{width:100%;aspect-ratio:880/1180;display:block;background:#f7f2e9;border-radius:6px;box-shadow:0 2px 9px #00000012}
+.template-card b{display:block;margin:7px 0 0;font-size:11px;line-height:1.35}.template-card small{display:block;color:#9f95a5;font-size:10px}
+.properties{display:flex;flex-direction:column;gap:10px;padding:8px 5px 17px}.properties p{font-size:12px;color:#928694}
+.prop-line{display:flex;flex-direction:column;gap:4px}.prop-line label{font-size:12px;color:#756b77}.prop-line input,.prop-line select,.prop-line textarea{padding:8px 9px;border:1px solid #ded6df;border-radius:8px;width:100%;background:#fff;color:#392e3d}.prop-line textarea{min-height:88px;resize:vertical}
+.prop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.prop-grid input{min-width:0}
+.prop-buttons{display:flex;gap:6px}.prop-buttons button{flex:1;background:#f7f3f8;border:1px solid #ded4e2;padding:8px;border-radius:7px;color:#473b4a}
+.layer-heading{font-size:12px;font-weight:800;padding:10px 4px;border-top:1px solid #eee8ef;color:#665970}
+.layer-list{display:flex;flex-direction:column;gap:5px}
+.layer-row{display:flex;align-items:center;width:100%;gap:9px;border:1px solid #eee8f0;border-radius:8px;padding:9px;background:#fff;color:#594d60;text-align:left;font-size:12px}.layer-row.active{background:#f2e9f6;border-color:#ad91be}
+@media(max-width:1250px){.ppt-topbar{gap:10px}.ppt-brand small{display:none}.ppt-body{grid-template-columns:165px minmax(0,1fr) 250px}.ppt-tools button{padding:7px 9px}.canvas-hint{display:none}}
+@media(max-width:790px){.ppt-topbar{max-height:29vh;overflow:auto;padding:8px}.ppt-body{grid-template-columns:100px minmax(0,1fr);grid-template-rows:minmax(0,1fr) 220px}.ppt-right{grid-column:1/-1;grid-row:2;border-top:1px solid #ded8df}.ppt-left{grid-column:1;grid-row:1}.ppt-center{grid-column:2;grid-row:1}.ppt-right .right-head,.ppt-right .right-tabs{display:none}.template-grid{grid-template-columns:repeat(5,minmax(105px,1fr));gap:8px}.right-scroll{padding:8px;overflow-x:auto}.canvas-heading{padding:7px}.canvas-center{padding:8px}.ppt-bottom{padding:6px}.ppt-bottom button{padding:6px}.slide-actions .side-row{flex-wrap:wrap}}
+
+/* V9.1: genuine scrollable page thumbnails; no shrinking into neighboring cards. */
+.slide-item { flex:0 0 auto; align-self:stretch; overflow:hidden; }
+.slide-info { display:block; min-width:0; }
+.slide-thumb { width:100%; max-width:100%; height:auto; aspect-ratio:880 / 1180; object-fit:cover; }
+.slide-index { flex:0 0 20px; }
+@media(max-width:790px){.slide-item{padding:5px;gap:2px}.slide-index{flex-basis:15px;font-size:9px}.slide-list{padding:4px;gap:6px}.slide-thumb{width:100%;height:auto}}
+
+/* V10 scrapbook stickers */
+.sticker-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:7px 1px 18px}
+.sticker-card{border:1px solid #ded5cd;border-radius:12px;background:#fcfaf6;padding:9px 3px 7px;display:flex;flex-direction:column;align-items:center;gap:6px;color:#584b48;cursor:pointer;min-width:0}
+.sticker-card:hover{background:#eee8df;border-color:#bda890;transform:translateY(-1px)}
+.sticker-card img{display:block;width:68px;height:68px;object-fit:contain}
+.sticker-card span{font-size:11px;white-space:nowrap}
+.right-scroll[hidden]{display:none!important}
+@media(max-width:790px){.ppt-right .right-tabs{display:flex!important;padding:4px 8px 7px}.sticker-grid{grid-template-columns:repeat(6,minmax(76px,1fr))}}
+
+/* V10.1: 片尾跨页快捷操作，不影响原 PPT 布局 */
+.ending-apply-all{display:block;width:100%;margin:0 0 14px;padding:13px 12px;border:1px solid #b5a07c;background:linear-gradient(120deg,#35263d,#211b29);border-radius:12px;color:#f0d8a8;cursor:pointer;font-weight:700;font-size:12px;line-height:1.5;text-align:center;box-shadow:0 5px 15px #3a29381f}
+.ending-apply-all:hover{background:linear-gradient(120deg,#493451,#2a1e34);border-color:#d3ba83}
+
+
+/* V10.2 — 非破坏性照片取景／裁剪与透明 PNG */
+.image-crop-primary{width:100%;padding:11px!important;background:#2c2133!important;border:1px solid #b49c6e!important;color:#f7e8cf!important;border-radius:9px;font-weight:750}
+.image-photo-hint{font-size:12px;line-height:1.7;color:#8b778e;padding:9px;border:1px dashed #d6c5d8;background:#faf8fc;border-radius:8px}
+.photo-edit-backdrop{position:fixed;inset:0;z-index:4000;background:rgba(24,16,30,.76);display:flex;align-items:center;justify-content:center;padding:16px;font:14px/1.5 system-ui,'Microsoft YaHei',sans-serif}
+.photo-edit-backdrop *{box-sizing:border-box}
+.photo-edit-dialog{width:min(1040px,100%);max-height:min(94vh,870px);background:#faf8fb;color:#322937;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;box-shadow:0 24px 90px #0008}
+.photo-edit-header{background:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 22px;border-bottom:1px solid #e5dce7}
+.photo-edit-header b{font-size:20px;display:block}
+.photo-edit-header small{font-size:12px;display:block;color:#97889b;margin-top:3px}
+.photo-edit-header button{border:0;background:#f1eaf2;color:#352939;border-radius:50%;font-size:18px;width:34px;height:34px;cursor:pointer}
+.photo-edit-tabs{display:flex;gap:8px;padding:12px 22px;border-bottom:1px solid #e6dce8;background:#fff}
+.photo-edit-tabs button{padding:10px 19px;border:1px solid #ded3e1;background:#f6f1f7;color:#604b64;border-radius:10px;font-size:14px;cursor:pointer}
+.photo-edit-tabs button.active{background:#30213c;color:#fff2d8;border-color:#a98c5e}
+.photo-edit-content{display:grid;grid-template-columns:minmax(0,1fr) 290px;min-height:0;overflow:auto}
+.photo-edit-viewport{background:#e7e2ea;display:flex;align-items:center;justify-content:center;min-width:0;touch-action:none;padding:12px}
+.photo-edit-viewport canvas{display:block;width:100%;max-height:65vh;aspect-ratio:640/500;object-fit:contain;touch-action:none;cursor:grab;box-shadow:0 5px 15px #0002}
+.photo-edit-viewport canvas:active{cursor:grabbing}
+.photo-edit-settings{padding:20px 18px;display:flex;flex-direction:column;gap:16px;background:#faf7fb;border-left:1px solid #dfd6e1;overflow-y:auto}
+.photo-edit-settings label{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:700}
+.photo-edit-settings select,.photo-edit-settings input{width:100%;accent-color:#785783;padding:9px 7px;border:1px solid #d6c9d9;border-radius:9px;background:#fff;color:#352a39}
+.photo-edit-settings input[type="range"]{padding:0;border:0}
+.photo-edit-settings p{line-height:1.8;font-size:12px;color:#7f7084;margin:14px 0 4px}
+.photo-edit-buttons{display:flex;gap:7px;margin:13px 0;flex-wrap:wrap}
+.photo-edit-buttons button{font-size:12px;padding:8px 10px;background:#fff;border:1px solid #dacdde;border-radius:8px;cursor:pointer;color:#4e3e54}
+.photo-edit-settings [hidden]{display:none!important}
+.photo-edit-footer{padding:15px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #e3d7e5;background:white}
+.photo-edit-footer span{font-size:12px;color:#998a9e}
+.photo-edit-footer div{display:flex;gap:8px}
+.photo-edit-footer button{padding:10px 20px;border:1px solid #d8cbd9;border-radius:10px;background:#fff;color:#46394b;cursor:pointer}
+.photo-edit-footer button.photo-edit-primary{background:#362541;color:#ffe6bc;border-color:#bda071}
+@media(max-width:850px){.photo-edit-content{grid-template-columns:1fr}.photo-edit-settings{border-left:0;border-top:1px solid #e5dce8}.photo-edit-viewport canvas{max-height:45vh}.photo-edit-dialog{max-height:96vh}}
+
+/* V10.3 我的手账素材库（新增在右侧手账素材面板顶部） */
+.personal-sticker-library{padding:10px 6px 18px;margin:0 0 12px;border-bottom:1px solid #dcd0c3;color:#56493e}
+.personal-sticker-title{display:flex;align-items:center;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.personal-sticker-title span{font-size:11px;color:#98836d}
+.personal-sticker-help{font-size:11px;color:#9d8b79;line-height:1.6;margin:5px 0 11px}
+.personal-sticker-actions{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:5px;margin-bottom:12px}
+.personal-sticker-actions button{border:1px solid #cfbba3;border-radius:8px;min-height:34px;padding:4px 3px;background:#faf7f2;color:#6b5140;font-size:11px;cursor:pointer}
+.personal-sticker-actions .personal-sticker-primary{background:#6e5445;color:#fff;border-color:#6e5445}
+.personal-sticker-grid{margin-bottom:2px;padding-bottom:4px}
+.personal-sticker-entry{min-width:0;display:flex;flex-direction:column;gap:3px}
+.personal-sticker-entry .sticker-card{width:100%;min-height:104px}
+.personal-sticker-entry .sticker-card img{background:conic-gradient(#eee 25%,#fff 0 50%,#eee 0 75%,#fff 0) 0 0/14px 14px;border-radius:4px}
+.personal-sticker-entry .sticker-card span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.personal-sticker-entry-actions{display:flex;gap:2px}
+.personal-sticker-entry-actions button{flex:1;min-width:0;border:0;background:transparent;color:#817265;font-size:10px;padding:5px 0;cursor:pointer}
+.personal-sticker-entry-actions button:hover{color:#a45748;text-decoration:underline}
+.personal-sticker-empty{font-size:11px;line-height:1.8;color:#9c8f83;padding:12px;background:rgba(235,225,211,.3);border-radius:8px}
+
+/* V10.4 — 用户字体库和本地抠图（裁剪窗口第三标签） */
+#fontFamily optgroup {color:#654b78;font-weight:600}
+.photo-edit-settings .pe-title{font-size:14px;color:#4a3b52}
+.photo-edit-tabs{flex-wrap:wrap}
+.photo-edit-settings .pe-cutout p{margin-top:8px;padding:10px 11px;background:#f5f0f6;border-radius:10px;border:1px solid #e4d9e6}
+.photo-edit-settings .pe-cutout p b{color:#6c466c}
+.photo-edit-settings .pe-cutout .photo-edit-buttons button{flex:1;min-width:90px}
+.photo-edit-settings .pe-cutout input[type=range]{cursor:pointer}
+@media(max-width:700px){.photo-edit-tabs button{font-size:12px;padding:7px 10px}}
+/* V11 authoring controls */
+.media-music-tools{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-bottom:10px;padding-bottom:11px;border-bottom:1px solid #c8bab33b}
+.media-music-tools strong{flex-basis:100%;font-size:12px}.media-music-tools button{font-size:11px;padding:7px 9px;border-radius:8px;border:1px solid #ad9480;background:#f5eee7;color:#423841;cursor:pointer}
+.media-music-tools>label{display:flex;align-items:center;gap:7px;flex-basis:100%;font-size:11px}.media-music-tools>label select{flex:1;min-width:0;padding:6px;border:1px solid #bcae9f;border-radius:6px;background:#fff;color:#423841}
+.media-music-tools small{font-size:11px;line-height:1.5;opacity:.8;flex-basis:100%}
+.media-prop-hint{font-size:12px;line-height:1.55;color:#85756c}
+.ppt-tools #addVideo,.ppt-tools #addAudio{border:1px solid #bda493;border-radius:8px;background:#f3e5dc;color:#553b48}
+@media(max-width:1100px){.ppt-tools #addVideo,.ppt-tools #addAudio{font-size:12px}}
+
+/* V12.2: export quality selector (desktop editor only). */
+.v122-quality{display:inline-flex;align-items:center;gap:6px;font-size:12px;white-space:nowrap;color:#60544d}
+.v122-quality select{border:1px solid #d9c8b8;background:#fffaf3;color:#473c37;border-radius:7px;padding:5px 4px;font:inherit;max-width:114px}
+
+/* V12.4 分类素材库 */
+.personal-sticker-actions{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.personal-sticker-actions button{flex:1 1 30%;min-width:86px;padding:7px 5px}
+.sticker-folder-bar{display:flex;gap:6px;overflow-x:auto;padding:5px 0 9px;scrollbar-width:thin}
+.sticker-folder-btn{flex:0 0 auto;white-space:nowrap;border:1px solid #d4c3b0;background:#faf7f2;color:#6d5547;border-radius:20px;padding:6px 10px;font-size:12px;cursor:pointer}
+.sticker-folder-btn.selected{background:#725343;border-color:#725343;color:#fff}
+.sticker-folder-ops{display:flex;gap:8px;margin-bottom:7px}
+.sticker-folder-ops button{border:none;background:none;color:#7b614e;text-decoration:underline;font-size:11px;padding:3px;cursor:pointer}
+.personal-sticker-entry-actions button{font-size:11px}
+
+.sticker-search{width:100%;box-sizing:border-box;border:1px solid #d4c3b0;background:#fffaf4;border-radius:8px;margin:0 0 10px;padding:9px 11px;color:#5a4b3f;font-size:13px}
+
+/* V12.5 deployable editor export */
+.editable-export-btn{background:#6d467d!important;color:#fff!important;border-color:#6d467d!important;font-weight:700!important}
+.editable-export-btn:disabled{opacity:.55}
+
+/* V12.6 · persistent music controls and clearer image-stretch affordances. */
+#studioMusicToggle[aria-pressed="true"]{color:#fff;background:#68428c;border-color:#68428c}
+#studioMusicToggle{white-space:nowrap;max-width:185px;text-overflow:ellipsis;overflow:hidden}
+@media(max-width:800px){#studioMusicToggle{font-size:11px;padding:7px 8px;max-width:128px}}
+
+/* V12.7: grouped selections, layer management and snap guides */
+.v127-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:6px 0 12px}
+.v127-actions button,.v127-align button{background:#f5eff7;border:1px solid #d9cae1;border-radius:7px;color:#564064;padding:7px 3px;font-size:11px;cursor:pointer}
+.v127-actions button:hover,.v127-align button:hover{background:#e8daee}
+.v127-align{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:5px 0 14px;padding:9px;border:1px solid #e7dfea;border-radius:10px}
+.v127-align-label{grid-column:1/-1;font-size:12px;font-weight:700;color:#725c7a}
+.v127-selection-info{font-size:12px;line-height:1.7;color:#66556e;padding:8px;background:#f8f4fa;border-radius:8px}
+.layer-row.locked{color:#847c8b;background:#f8f7f8}
+.layer-row.locked.active{border-color:#a285b4;background:#eee6f3}
+
+.v127-actions button[aria-pressed="true"]{background:#725082;color:white;border-color:#725082}
+
+/* V12.8 · marquee selection, group transforms and sticker favorites */
+.v128-transform{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:8px 0 14px;padding:10px;background:#f3f7f6;border:1px solid #d0e5df;border-radius:10px}
+.v128-transform-label{grid-column:1/-1;font-size:12px;font-weight:700;color:#456f66}
+.v128-transform button{border:1px solid #b7d3c9;background:#fff;border-radius:7px;padding:8px 4px;font-size:12px;color:#426a60;cursor:pointer}
+.v128-transform button:hover{background:#e2f0ec}
+.personal-sticker-entry-actions{flex-wrap:wrap}
+.personal-sticker-entry-actions button{min-width:0}
+.personal-sticker-entry-actions .v128-favorite{font-weight:700;color:#7a5c8b}
+.personal-sticker-entry-actions .v128-favorite.is-favorite{color:#ad6b26}
+
+/* V12.9 · multi-layer z-order, batch photo replacement and page transfer. */
+.v129-order{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:10px 0;border-top:1px solid #e7dcea;border-bottom:1px solid #e7dcea;margin:8px 0}
+.v129-order-title{grid-column:1/-1;font-size:12px;font-weight:700;color:#6b5271}
+.v129-order button{background:#f3eaf6;border:1px solid #d5c4dd;border-radius:8px;color:#533c60;padding:8px 3px;cursor:pointer;font-size:12px}
+.v129-order button:hover{background:#e7d7ee}
+.v129-order small{grid-column:1/-1;font-size:10px;color:#95819b;line-height:1.5}
+#replaceSelectedPhotos{border:1px solid #d5b7c8;background:#f8eef4;color:#643d59}
+.v129-page-transfer{display:flex;flex-direction:column;gap:6px;border-top:1px solid #e3d7e7;background:#faf7fb;padding:11px 12px;color:#624a69}
+.v129-page-transfer strong{font-size:12px}.v129-page-transfer label{font-size:11px}
+.v129-page-transfer select{width:100%;min-height:35px;border:1px solid #d7c7dd;border-radius:8px;background:#fff;padding:6px 8px;color:#4e3d56;font-size:12px}
+.v129-page-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.v129-page-buttons button,.v129-page-transfer>button{min-height:34px;border:1px solid #d9c9df;background:#fff;color:#5c4568;border-radius:8px;font-size:11px;padding:5px 7px;cursor:pointer}
+.v129-page-buttons button:first-child{grid-column:1/-1;background:#f5eaf3}
+.v129-page-transfer button:disabled{opacity:.45;cursor:not-allowed}
+.v129-page-transfer small{font-size:10px;line-height:1.55;color:#99869e}
+@media(max-width:800px){.v129-page-transfer{padding:6px 10px;gap:4px}.v129-page-transfer small{display:none}.v129-page-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}.v129-page-buttons button:first-child{grid-column:auto}.v129-page-buttons button,.v129-page-transfer>button{font-size:10px;min-height:33px}.ppt-left .v129-page-transfer{flex:0 0 auto}}
+
+/* V12.10 — compact, adjustable workbench. No authoring features removed. */
+.ppt-body{position:relative}
+.v1210-layout-actions{display:none}
+.v1210-resize-left,.v1210-resize-right,.v1210-resize-top{display:none}
+.v1210-page-nav{display:flex;gap:4px;align-items:center}
+.v1210-page-nav button{width:30px;height:28px;border:1px solid #ddd1e2;border-radius:7px;background:#fff;color:#624e69;font-size:20px;line-height:1;cursor:pointer}
+.v1210-page-nav button:hover{background:#efe4f3}
+.ppt.v1210-compact .canvas-hint,.ppt.v1210-compact .tpl-intro,.ppt.v1210-compact .sidebar-foot,.ppt.v1210-compact .v129-order small,.ppt.v1210-compact .v129-page-transfer small{display:none}
+.ppt.v1210-compact .right-foot>.v1210-music-help{display:none}
+.v1210-music-help{font-size:11px;color:#8b8090;line-height:1.6}
+.v1210-music-help summary{cursor:pointer;font-weight:600}
+.v129-page-transfer{display:block!important;padding:0!important;border-top:1px solid #e3d7e7;background:#faf7fb}
+.v129-page-transfer>summary{cursor:pointer;list-style:none;padding:10px 12px;font-weight:750;font-size:12px;color:#634a70;display:flex;justify-content:space-between}
+.v129-page-transfer>summary::after{content:'⌄';color:#907b99}
+.v129-page-transfer[open]>summary::after{content:'⌃'}
+.v129-page-transfer>summary::-webkit-details-marker{display:none}
+.v1210-transfer-body{padding:4px 12px 12px;display:flex;flex-direction:column;gap:6px}
+.v1210-transfer-body label{font-size:11px}
+.v1210-transfer-body select{width:100%;min-height:34px}
+.v1210-backup-menu{position:relative;min-width:0}
+.v1210-backup-menu>summary{list-style:none;display:inline-flex;align-items:center;gap:4px;padding:7px 12px;border:1px solid #ddd2e2;background:#fff;border-radius:9px;cursor:pointer;color:#54415f;font-weight:750;white-space:nowrap}
+.v1210-backup-menu>summary::-webkit-details-marker{display:none}
+.v1210-backup-actions{position:absolute;z-index:15;bottom:calc(100% + 10px);left:0;display:flex;flex-direction:column;align-items:stretch;gap:5px;min-width:228px;max-width:min(88vw,300px);padding:10px;border-radius:12px;border:1px solid #d8c9e1;background:#fff;box-shadow:0 10px 35px #30203d35}
+.v1210-backup-actions button{text-align:left;white-space:normal}
+.ppt-bottom{position:relative;min-height:49px}
+@media(min-width:801px){
+ .ppt-topbar{position:relative;display:grid;grid-template-columns:125px 148px minmax(0,1fr) minmax(210px,280px);gap:8px;height:var(--studio-top-size,88px);min-height:74px;max-height:260px;padding:8px 13px 13px;align-items:stretch;flex-wrap:nowrap;overflow:visible}
+ .ppt-brand{min-width:0;align-self:start;gap:6px}.ppt-brand small{display:none}
+ .ppt-appicon{width:32px;height:32px;font-size:17px;flex:none}
+ .ppt-brand b{font-size:13px;white-space:nowrap}
+ .v1210-layout-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;align-content:start;min-width:0}
+ .v1210-layout-actions button{border:1px solid #ded3e5;border-radius:8px;background:#fff;color:#604a6a;padding:5px 3px;font-size:11px;white-space:nowrap;min-height:29px}
+ .v1210-layout-actions button[aria-pressed="true"]{background:#eee6f3;border-color:#bfa8ca}
+ .v1210-layout-actions #toggleCompactMode{grid-column:1/-1}
+ .ppt-tools{min-width:0;min-height:0;max-height:100%;overflow-y:auto;overflow-x:hidden;flex-wrap:wrap;align-content:start;justify-content:flex-start;gap:4px;padding:0 2px;scrollbar-width:thin}
+ .ppt-tools button{padding:6px 8px;font-size:11px;min-height:30px}
+ .ppt-tools select{padding:5px 6px;min-width:120px;max-width:160px}
+ .ppt-tools .tiny-field input{height:27px}
+ .ppt-actions{min-width:0;min-height:0;max-height:100%;display:flex;flex-wrap:wrap;align-content:start;align-items:start;justify-content:flex-end;gap:4px;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin}
+ .ppt-actions button{padding:6px 8px;min-height:30px;font-size:11px}
+ .ppt-actions .v122-quality{font-size:11px}
+ .ppt-body{grid-template-columns:var(--studio-left-effective,206px) minmax(0,1fr) var(--studio-right-effective,292px);transition:none}
+ .ppt.v1210-hide-left .ppt-left,.ppt.v1210-hide-right .ppt-right{display:none!important}
+ .v1210-resize-left,.v1210-resize-right{display:block;position:absolute;top:0;bottom:0;width:10px;z-index:10;cursor:col-resize;touch-action:none;transform:translateX(-50%)}
+ .v1210-resize-left{left:var(--studio-left-effective,206px)}
+ .v1210-resize-right{left:calc(100% - var(--studio-right-effective,292px))}
+ .v1210-resize-left::after,.v1210-resize-right::after{content:'';display:block;position:absolute;top:12%;bottom:12%;left:4px;width:2px;border-radius:3px;background:transparent}
+ .v1210-resize-left:hover::after,.v1210-resize-right:hover::after,.v1210-resize-left.dragging::after,.v1210-resize-right.dragging::after{background:#9b72b0}
+ .v1210-resize-top{display:block;position:absolute;left:0;right:0;bottom:-5px;height:10px;z-index:12;cursor:row-resize;touch-action:none}
+ .v1210-resize-top::after{content:'';position:absolute;left:43%;right:43%;height:3px;bottom:4px;border-radius:4px;background:#d6c5de}
+ .v1210-resize-top:hover::after,.v1210-resize-top.dragging::after{background:#936ca6}
+ .ppt-left .side-title,.ppt-right .right-head{padding:10px 12px 7px}
+ .ppt-right .right-head span{display:none}
+ .ppt-left .slide-list{padding:3px 10px;gap:7px}
+ .ppt-left .slide-item{padding:6px;gap:5px}
+ .ppt-left .slide-actions{padding:8px}
+ .ppt-left .slide-actions button{padding:6px 3px;font-size:11px}
+ .ppt-left .side-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+ .ppt-right .right-tabs{padding:4px 8px 8px}
+ .ppt-right .right-tab{padding:7px 4px;font-size:11px}
+ .canvas-heading{padding:7px 14px;gap:10px;flex-wrap:nowrap;min-height:41px}
+ .canvas-center{padding:9px 14px 13px}
+ .ppt-bottom{padding:7px 14px;flex-wrap:nowrap}
+}
+@media(max-width:800px){
+ .v1210-layout-actions,.v1210-resize-left,.v1210-resize-right,.v1210-resize-top,.v1210-page-nav{display:none!important}
+ .v1210-backup-menu>summary{font-size:11px;padding:6px 9px;min-height:32px}
+ .v1210-backup-actions{bottom:calc(100% + 4px);min-width:220px;max-height:60dvh;overflow:auto}
+ .ppt.v1210-compact .sidebar-foot{display:none}
+ .v1210-transfer-body{padding:4px 8px 8px}
+ .v129-page-transfer>summary{padding:6px 10px;font-size:11px}
+}
+
+/* Keep the floating backup actions visible above the mobile footer. */
+.ppt-bottom{z-index:auto}
+.ppt-bottom:has(.v1210-backup-menu[open]){z-index:11}
+.v1210-backup-menu[open]{z-index:20}
+@media(max-width:800px){.ppt-bottom{overflow:visible!important}.ppt.v1210-compact .mobile-editor-note{display:none!important}}
+/* V12.11 · history and safety center, folded by default */
+.ppt-bottom .v1211-history-center{position:relative;flex:0 0 auto;min-width:0}
+.v1211-history-center>summary{padding:8px 11px;border:1px solid #e1d9e5;border-radius:10px;background:#f9f7fb;color:#473751;font-size:12px;font-weight:650;cursor:pointer;white-space:nowrap}
+.v1211-history-center[open]>summary{background:#eee7f4}
+.v1211-history-wrap{position:absolute;bottom:calc(100% + 10px);left:0;z-index:90;width:min(430px,calc(100vw - 28px));max-height:min(65vh,580px);overflow:auto;box-sizing:border-box;border:1px solid #ddd2e4;box-shadow:0 12px 42px #2b21304d;border-radius:13px;padding:15px;background:#fff;color:#43394a;font-size:12px;line-height:1.65}
+.v1211-history-wrap>p{margin:0 0 10px}.v1211-history-actions{display:flex;gap:6px;flex-wrap:wrap;margin:9px 0}
+.v1211-history-actions button,.v1211-version button{padding:6px 10px;border:1px solid #d9cddd;border-radius:8px;background:#faf8fc;color:#4b3952;cursor:pointer;font-size:12px}
+.v1211-history-actions button:hover,.v1211-version button:hover{background:#eee8f2}
+#historyStatus{margin:6px 0;color:#775284;font-size:12px}#historyUsage{color:#8b8191;display:block;margin-bottom:8px}
+.v1211-history-versions{display:grid;gap:6px}.v1211-history-versions>p{color:#8d8192;font-size:12px}
+.v1211-version{display:flex;align-items:center;gap:6px;border:1px solid #eee8ef;border-radius:9px;padding:8px}
+.v1211-version-info{flex:1;min-width:0}.v1211-version-info strong,.v1211-version-info small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.v1211-version-info small{color:#8a7e8d}
+.v1211-version .v1211-delete{color:#a2575d}#historyReport{white-space:pre-wrap;overflow-wrap:anywhere;max-height:190px;overflow:auto;margin:10px 0;padding:10px;background:#f6f3f7;color:#433949;border-radius:8px;font-size:11px}
+.v1211-history-warning{margin-top:10px!important;color:#855d6f}
+@media(max-width:700px){.v1211-history-wrap{position:fixed;left:8px;right:8px;bottom:54px;width:auto;max-height:65vh}.ppt-bottom .v1211-history-center{flex:0 0 auto}}
+
+/* V12.12 · photo adjustments & V12.16 stroke/shape/filters */
+.image-frame-primary{width:100%;padding:10px!important;border-radius:9px;background:#f8f1e8!important;border:1px solid #ccb190!important;color:#5a412c!important;font-weight:750}
+.image-effect-primary{width:100%;padding:10px!important;border-radius:9px;background:#f4edf7!important;border:1px solid #bda6ca!important;color:#50315a!important;font-weight:750}
+.photo-edit-settings .pe-adjust,.photo-edit-settings .pe-frame{display:flex;flex-direction:column;gap:11px}
+.photo-edit-settings .pe-adjust label,.photo-edit-settings .pe-frame label{gap:4px}
+.photo-edit-settings .pe-adjust label>strong,.photo-edit-settings .pe-frame label>strong{font-size:12px;color:#7b587f;align-self:flex-end;margin-top:-20px}
+.photo-edit-settings label.pe-shadow-toggle{display:flex;flex-direction:row;gap:8px;align-items:center;font-size:12px;padding:11px;background:#eee6f2;border-radius:9px}
+.photo-edit-settings .pe-shadow-toggle input{width:auto;height:17px;margin:0;flex:none}
+.pe-shadow-controls,.pe-stroke-controls{display:grid;gap:10px;padding:10px;border-radius:10px;border:1px solid #e7ddea;background:#fff}
+.pe-shadow-controls.is-disabled,.pe-stroke-controls.is-disabled{opacity:.55;pointer-events:none}
+.pe-swatches{display:flex;gap:8px;align-items:center;padding-top:2px}
+.pe-swatches button{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid #d5c5d8;cursor:pointer;box-shadow:0 1px 3px #0002}
+.pe-swatches button:hover{transform:scale(1.1);border-color:#785783}
+.photo-edit-buttons button.active{background:#30213c;color:#fff2d8;border-color:#a98c5e}
+.photo-edit-settings .pe-adjust .photo-edit-buttons{margin:3px 0 4px}
+/* V12.20 · Bookshelf / Multi-book manager */
+.books-modal-dialog{width:min(760px,100%);max-height:min(90dvh,760px);background:#fbf9fc;color:#322937;display:flex;flex-direction:column;border-radius:18px;overflow:hidden;box-shadow:0 24px 90px #0008}
+.books-modal-body{padding:18px 20px;overflow-y:auto;display:grid;gap:18px}
+.books-list{display:grid;gap:10px}
+.book-item{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1px solid #e4dae8;border-radius:12px;background:#fff}
+.book-item.is-active{border-color:#8d649e;background:#f7f1fa;box-shadow:0 0 0 2px #8d649e22}
+.book-item-meta{display:grid;gap:3px;min-width:0}
+.book-item-meta strong{font-size:15px;color:#35263d}
+.book-item-meta small{font-size:12px;color:#827389}
+.book-item-actions{display:flex;gap:6px;flex-wrap:wrap}
+.book-item-actions button{padding:7px 12px;border:1px solid #d7cadb;border-radius:8px;background:#fff;color:#46364d;font-size:12px;cursor:pointer}
+.book-item-actions button.primary{background:#362541;color:#ffe6bc;border-color:#bda071}
+.book-create-card{padding:14px;border:1px solid #e4dae8;border-radius:12px;background:#f5eff8;display:grid;gap:11px}
+.book-create-card h3{margin:0;font-size:14px;color:#3d2a47}
+.book-create-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.book-create-grid label{display:grid;gap:5px;font-size:12px;font-weight:700;color:#4f3e57}
+.book-create-grid input,.book-create-grid select{padding:9px 10px;border:1px solid #d3c5d7;border-radius:8px;background:#fff;color:#352a39;font:inherit}
+@media(max-width:700px){.photo-edit-tabs{gap:4px;padding:9px 11px}.photo-edit-tabs button{padding:7px 9px;font-size:11px}.photo-edit-settings{padding:15px}.photo-edit-viewport canvas{max-height:40vh}}
+
+
+/* V12.13 — book overview, fixed covers, spread grouping and accessible reorder. */
+.ppt-left .side-title{flex-wrap:wrap}
+.ppt-left .v1213-open{border:1px solid #d9c7e4;background:#f6eff9;border-radius:8px;padding:5px 9px;color:#51375f;font-weight:750;font-size:11px;white-space:nowrap}
+.ppt-left .v1213-open:hover{background:#e9daef}
+.v1213-overlay[hidden]{display:none!important}
+.v1213-overlay{position:absolute;inset:0;z-index:220;display:grid;place-items:center;background:rgba(30,22,35,.60);padding:24px}
+.v1213-dialog{display:flex;flex-direction:column;max-width:1040px;width:100%;height:min(92dvh,940px);background:#fbfafc;color:#3d3046;border-radius:17px;box-shadow:0 22px 80px #180b2377;overflow:hidden;outline:none}
+.v1213-modal-head{display:flex;align-items:start;justify-content:space-between;gap:10px;padding:18px 21px 13px;background:white;border-bottom:1px solid #eee7f0}
+.v1213-modal-head h2{margin:0;font-size:20px;line-height:1.35}.v1213-modal-head p{font-size:12px;color:#837889;margin:6px 0 0}
+.v1213-modal-head button,.v1213-controls button{border:1px solid #ded4e4;border-radius:8px;background:white;color:#564262;padding:9px 11px;font-size:12px;font-weight:650;white-space:nowrap}
+.v1213-modal-head button:hover,.v1213-controls button:hover{background:#f1e9f6}
+.v1213-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:11px 21px;background:#fff;border-bottom:1px solid #eee7f0}
+.v1213-controls>button:nth-child(-n+2){background:#f1e7f7;border-color:#dac5e7}
+.v1213-controls label{display:flex;align-items:center;gap:5px;font-size:12px;color:#6b5d73}
+.v1213-controls select{max-width:125px;padding:8px 5px;border:1px solid #ddd1e1;border-radius:8px;background:white;color:#493853}
+.v1213-overview-scroll{overflow-y:auto;flex:1;min-height:0;padding:18px clamp(10px,3vw,28px)}
+.v1213-overview-grid{display:flex;flex-direction:column;align-items:stretch;gap:14px;max-width:810px;margin:auto}
+.v1213-bookends,.v1213-spread-pages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.v1213-bookends{margin-bottom:9px}.v1213-spread{border:1px solid #e6deea;border-radius:12px;background:white;padding:10px;box-shadow:0 2px 7px #23142e0a}
+.v1213-spread-title{font-size:11px;letter-spacing:.04em;color:#947d9b;margin:0 0 8px;font-weight:750}
+.v1213-page-card{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;min-width:0;border:2px solid transparent;border-radius:10px;background:#f8f5f9;padding:9px 6px;cursor:grab;transition:box-shadow .14s,border-color .14s,background .14s}
+.v1213-page-card:hover{background:#f0e9f4}.v1213-page-card:focus-visible{outline:3px solid #ae83c8;outline-offset:1px}
+.v1213-page-card[aria-pressed="true"]{border-color:#986fb1;background:#f3e9f8;box-shadow:0 0 0 2px #d6bce577}
+.v1213-page-card.v1213-drag-over{border-color:#c25096;background:#f9e9f3;box-shadow:inset 4px 0 #c25096}
+.v1213-page-card.v1213-dragging{opacity:.48}
+.v1213-page-card canvas{display:block;width:min(100%,125px);height:auto;aspect-ratio:880/1180;background:#f7f2e9;border:1px solid #e3dbe2;border-radius:4px;object-fit:contain}
+.v1213-page-card strong{font-size:12px}.v1213-page-card span{font-size:10px;color:#958a9a}
+.v1213-page-card.v1213-fixed{cursor:default;background:#f3f2f4;border-color:#ebe4ed}
+.v1213-modal-foot{background:#fff;border-top:1px solid #eee7f0;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;font-size:12px;color:#614d6a}
+.v1213-modal-foot small{color:#938698;font-size:11px;max-width:490px}
+@media(max-width:800px){.v1213-overlay{padding:0}.v1213-dialog{height:100dvh;max-width:none;border-radius:0}.v1213-modal-head{padding:10px 12px}.v1213-modal-head h2{font-size:16px}.v1213-modal-head p{font-size:11px}.v1213-controls{padding:7px;gap:5px}.v1213-controls button{font-size:11px;padding:7px}.v1213-overview-scroll{padding:9px}.v1213-spread{padding:7px}.v1213-spread-pages{gap:6px}.v1213-page-card{padding:5px}.v1213-modal-foot{padding:8px;font-size:11px}.v1213-page-card canvas{width:min(100%,100px)}}
+
+
+/* V12.14.1: personal collage templates only; online material suggestions removed. */
+.v1214-collage-section{background:var(--surface,#fbf8f4);border:1px solid #ddd2db;border-radius:13px;margin:8px 5px 15px;padding:12px;color:#514151}
+.v1214-collage-section h3{font-size:14px;margin:0 0 5px}
+.v1214-collage-section p{font-size:12px;line-height:1.55;opacity:.8;margin:5px 0 10px}
+.v1214-save-group{display:block;width:100%;padding:10px 5px;border:1px solid #9f829f;border-radius:9px;background:#ede4ef;font-size:12px;cursor:pointer}
+.v1214-saved-template{display:grid;grid-template-columns:1fr auto;gap:6px;border-top:1px solid #e2d9e1;padding:10px 0;align-items:center}
+.v1214-saved-template strong{font-size:12px}.v1214-saved-template small{grid-column:1 / -1;font-size:11px}
+.v1214-saved-template button{border:1px solid #ddd;border-radius:7px;background:#fff;padding:6px 8px;cursor:pointer;font-size:11px}
+@media(max-width:800px){.v1214-collage-section{margin:6px 3px;padding:8px}}
+
+/* V12.15 soundtrack settings inside the existing design panel */
+.v1215-sound-panel{display:grid;gap:9px;margin-top:12px;padding:10px;border:1px solid #d9cfdd;border-radius:10px;background:#faf8fb;color:#52475c}
+.v1215-sound-panel label{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12px}
+.v1215-sound-panel input[type=range]{width:min(110px,42%);accent-color:#76517f}
+.v1215-sound-panel output{font-variant-numeric:tabular-nums;min-width:32px}
+.v1215-sound-panel select{max-width:100%;padding:5px;border:1px solid #d3c8d5;border-radius:6px;background:white;color:#433c45;font-size:12px}
+.v1215-sound-panel .v1215-check{justify-content:flex-start}.v1215-sound-panel button{width:100%;padding:7px}
+#mediaCheckStatus{font-size:11px;line-height:1.5;overflow-wrap:anywhere}

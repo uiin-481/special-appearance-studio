@@ -1,0 +1,213 @@
+/* 特别出演 · 艺术与氛围渲染增强样式 */
+
+/* 1. 电影级边缘柔化暗角 + 左上方画外台灯暖光余晖 */
+.cinematic-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background:
+    radial-gradient(55% 50% at 6% 4%, rgba(255, 204, 136, 0.11) 0%, rgba(255, 185, 105, 0.03) 48%, transparent 75%),
+    radial-gradient(125% 95% at 50% 48%, transparent 48%, rgba(10, 8, 6, 0.40) 84%, rgba(4, 3, 2, 0.68) 100%);
+  transition: opacity 0.8s ease;
+}
+
+/* 2. 开篇沉浸式唤醒剧幕 (The Awakening Curtain) */
+.awakening-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #080706;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e8ded2;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.4s;
+  font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.awakening-curtain.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.awakening-box {
+  text-align: center;
+  padding: 32px 48px;
+  border-radius: 12px;
+  background: radial-gradient(circle, rgba(30, 24, 20, 0.6) 0%, transparent 85%);
+  backdrop-filter: blur(4px);
+  animation: gentlePulse 4s ease-in-out infinite;
+}
+
+.awakening-title {
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  color: #f7f0e6;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 14px rgba(230, 180, 120, 0.35);
+}
+
+.awakening-sub {
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  color: #a89f92;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.awakening-prompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(220, 195, 160, 0.3);
+  background: rgba(25, 20, 16, 0.5);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: #d8cdbe;
+  transition: all 0.3s ease;
+}
+
+.file-warning-box {
+  background: rgba(45, 30, 20, 0.75);
+  border: 1px solid rgba(230, 150, 60, 0.45);
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.awakening-curtain:hover .awakening-prompt {
+  background: rgba(220, 195, 160, 0.18);
+  border-color: rgba(240, 215, 180, 0.6);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.awakening-icon {
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+/* 3. 桌面信物浮动悬停标签 */
+.props-pill {
+  position: fixed;
+  z-index: 40;
+  pointer-events: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(18, 15, 12, 0.82);
+  border: 1px solid rgba(220, 195, 160, 0.32);
+  color: #f0e6d8;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translate(-50%, -140%) scale(0.95);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+.props-pill.visible {
+  opacity: 1;
+  transform: translate(-50%, -155%) scale(1);
+}
+
+/* 4. 细节微调：消除随身听下方多余的分离式伪元素黑影（保留 WebGL 真实接触阴影） */
+#v12191-dock::before {
+  opacity: 0.18;
+  bottom: 85px;
+}
+
+/* 翻页提示词留在导航圆点与操作栏之间，避免和 [目录/沉浸阅读] 按钮重叠 */
+.dock {
+  padding-bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+}
+
+.dock .hint {
+  margin: 2px 0 0;
+  opacity: 0.55;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+}
+
+.dock .hint.gone {
+  opacity: 0;
+}
+
+.dock:has(.dots.sa-ui-movable) .hint {
+  display: none;
+}
+
+/* 随身听状态信息优化：仅在必要时极低饱和度显示，不突兀破坏书桌氛围 */
+#v12191-status {
+  display: none !important;
+}
+
+/* 移动端顶栏紧凑折行适配：防止加入“光影”选择器后遮挡左上书名或溢出右屏 */
+@media (max-width: 740px) {
+  .top .right {
+    max-width: calc(100vw - 110px);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+  }
+  .top .pill {
+    height: 32px;
+    padding: 0 8px 0 4px;
+    gap: 4px;
+    font-size: 10px;
+  }
+  .top .pill .sw {
+    width: 22px;
+    height: 22px;
+  }
+  .top .pill .lbl {
+    display: none;
+  }
+  #paperName {
+    max-width: 66px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .reader-quality {
+    height: 32px;
+    padding: 0 7px;
+    gap: 3px;
+    font-size: 11px;
+  }
+  .reader-quality span {
+    display: none;
+  }
+  .reader-quality select {
+    font-size: 11px;
+    max-width: 68px;
+  }
+  .top .icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+  #sa-scene-open {
+    height: 32px;
+    padding: 0 9px;
+    font-size: 11px;
+  }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.88; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.015); }
+}
