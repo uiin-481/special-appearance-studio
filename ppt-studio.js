@@ -33,6 +33,36 @@ const templateData=[
  {name:'蓝调夜行',cat:'电影',desc:'大幅夜景与电影字幕',bg:'#161e33',make:()=>[T('NIGHTS IN THE CITY',62,77,747,61,45,'#f6e4b9',eng),P(70,215,738,722),S(70,973,738,3,'#a6aabc'),T('THE NIGHT WAS OURS',70,1010,738,67,37,'#ece3dc',eng,{align:'right'})]},
  {name:'两页的信',cat:'文字',desc:'留白书信页面',bg:'#f2e8d8',make:()=>[S(49,47,782,1084,'#f2e8d8',{stroke:'#bba68c'}),T('写给未来的我们',100,150,670,100,66,'#483d34',hand),T('Dear us,',100,328,600,80,45,'#65554a',eng),T('那段日子里，\n我们把平凡的时间过得很好。\n\n留一点空白，\n下次相见再继续写。',104,510,672,470,43,'#5c5045',serif)]}
 ];
+const PLOG_PALETTES=[
+ {name:'奶油原木',colors:['#f6f4f0','#e8dfd3','#b99f82','#42342e']},
+ {name:'抹茶燕麦',colors:['#f1f3eb','#d0d7bd','#6b7f5e','#233022']},
+ {name:'樱桃摩卡',colors:['#f6eee9','#e7b9b2','#b24a4a','#2b181b']},
+ {name:'黄油复古',colors:['#fff3e1','#ffd8a8','#a4b5c4','#4a2a20']},
+ {name:'清冷极简',colors:['#f5f6f8','#e2e5ea','#7d8997','#1c2026']},
+ {name:'暗夜电影',colors:['#1b1420','#2b2434','#c7ac79','#f1e5ce']}
+];
+const PLOG_BG_PATTERNS=[['none','纯色底'],['grid','手帐方格'],['dots','波点网格'],['lined','日记横线'],['grain','胶片颗粒']];
+function plogSvgUri(svg){return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)}
+const PLOG_TEXT_PRESETS=[
+ {name:'📅 日期印章',desc:'打字机等宽风',make:()=>[T('2026.11 · SCENE',160,120,560,54,32,'#4a3b34',"'Courier New',monospace",{align:'center'}),S(280,180,320,3,'#b89b72')]},
+ {name:'🏷 荧光高亮条',desc:'鹅黄高亮底+手写',make:()=>[S(180,180,520,74,'#ffeaa0',{radius:12,rotation:-1}),T('今天也是值得记录的好天气 ~',196,192,488,56,34,'#47392e',hand,{align:'center',rotation:-1})]},
+ {name:'🎬 电影双语字幕',desc:'中文+英文副题',make:()=>[T('故事发生的时候',120,920,640,66,46,'#f7efe2',serif,{align:'center'}),T('THE MOMENT WE KEPT IN FRAME',120,992,640,40,21,'#d5be96',eng,{align:'center'})]},
+ {name:'📍 地点坐标卡',desc:'胶囊标签+坐标',make:()=>[S(200,150,480,68,'#ffffff',{radius:34,stroke:'#b99f82'}),T("📍 NANJING · 32°03'N",216,164,448,44,26,'#4a3b34',"'Courier New',monospace",{align:'center'})]},
+ {name:'✉ 备忘录便签',desc:'圆角便签纸',make:()=>[S(160,220,560,310,'#fffaf0',{radius:18,stroke:'#d8c8b4'}),T('NOTE TO SELF',195,248,490,40,22,'#9c7e62',eng),S(195,294,490,2,'#e6d8c6'),T('把平凡的日子折叠起来，\n写进这一页慢慢翻看。',195,318,490,180,34,'#4a3d35',serif)]},
+ {name:'🎞 杂志大标题',desc:'大字衬线+短线',make:()=>[T('CORE MEMORY',100,110,680,44,24,'#8f775e',eng),T('特别出演：我们的日常',100,156,680,82,56,'#2d2420',serif),S(100,248,140,6,'#b88d5d')]},
+ {name:'💬 气泡碎碎念',desc:'圆角对话框',make:()=>[S(190,240,500,120,'#f4edf7',{radius:28,stroke:'#bba6ca'}),T('此时此刻的心情，满分！',215,274,450,58,34,'#4f3459',hand,{align:'center'})]},
+ {name:'📹 CCD 时间戳',desc:'复古 DV 角标',make:()=>[T('REC ●   2026/11/24   00:24',80,70,520,44,24,'#e35b4f',"'Courier New',monospace")]}
+];
+const PLOG_PATTERNS=[
+ {name:'胶带 · 格纹',desc:'半透斜贴纸胶带',w:260,h:76,svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 76"><rect x="4" y="6" width="252" height="64" rx="4" fill="#d9c6a5" fill-opacity="0.72" stroke="#bba27c" stroke-width="2" stroke-dasharray="6 4"/><path d="M20 6v64M50 6v64M80 6v64M110 6v64M140 6v64M170 6v64M200 6v64M230 6v64M4 26h252M4 50h252" stroke="#ffffff" stroke-opacity="0.45" stroke-width="2"/></svg>'},
+ {name:'胶带 · 樱花粉',desc:'手撕边缘胶带',w:250,h:68,svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 68"><path d="M10 8 L242 6 L236 22 L245 38 L238 60 L8 62 L14 42 L6 24 Z" fill="#f3c6cf" fill-opacity="0.82"/></svg>'},
+ {name:'拍立得相框',desc:'经典白框（放底层）',w:440,h:520,svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 520"><rect x="6" y="6" width="428" height="508" rx="6" fill="#fffdf8" stroke="#dfd4c6" stroke-width="4"/><rect x="30" y="30" width="380" height="380" fill="#efe8dd" stroke="#e4d9cb" stroke-width="2"/></svg>'},
+ {name:'邮票齿孔框',desc:'复古邮票边框',w:360,h:440,svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 440"><rect x="14" y="14" width="332" height="412" fill="none" stroke="#c5a882" stroke-width="8" stroke-dasharray="10 10"/><rect x="30" y="30" width="300" height="380" fill="none" stroke="#c5a882" stroke-width="2"/></svg>'},
+ {name:'星芒闪烁 ✦',desc:'手绘星星组合',w:180,h:180,svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"><path d="M90 14 Q96 80 166 90 Q96 100 90 166 Q84 100 14 90 Q84 80 90 14Z" fill="#e9c46a"/><path d="M142 22 Q145 42 164 44 Q145 46 142 66 Q139 46 120 44 Q139 42 142 22Z" fill="#f4a261"/></svg>'},
+ {name:'手绘波浪线',desc:'涂鸦分隔线',w:340,h:70,svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 70"><path d="M12 38 Q40 12 68 38 T124 38 T180 38 T236 38 T292 38 T328 38" fill="none" stroke="#7c9070" stroke-width="7" stroke-linecap="round"/></svg>'},
+ {name:'手绘小箭头',desc:'标注重点指针',w:180,h:120,svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 120"><path d="M16 92 Q78 86 148 34 M124 24 L154 30 L142 60" fill="none" stroke="#b24a4a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>'},
+ {name:'像素爱心',desc:'Y2K 复古贴纸',w:140,h:130,svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 130"><path d="M30 20 H55 V35 H85 V20 H110 V35 H125 V65 H110 V80 H95 V95 H80 V110 H60 V95 H45 V80 H30 V65 H15 V35 H30 Z" fill="#e76f7a" stroke="#2d1e22" stroke-width="5"/></svg>'}
+];
 const blank=()=>({bg:'#f7f2e9',elements:[]});
 // 背景、金边、标题、照片槽全部是分离的编辑元素；边框锁定鼠标拾取，避免挡住文字。
 const gold='#c7ac79', pale='#f1e5ce', dim='#cbbba6';
@@ -690,6 +720,24 @@ function handles(el){return{
 }}
 function linesOf(c,text,maxWidth,fontSize){const result=[];for(const para of String(text||'').split('\n')){if(!para){result.push('');continue}let line='';for(const char of para){const test=line+char;if(c.measureText(test).width>maxWidth&&line){result.push(line);line=char}else line=test}result.push(line)}return result}
 function paintSlide(slide,target,hidePlaceholders=false){const c=target.getContext('2d');c.save();c.setTransform(target.width/W,0,0,target.height/H,0,0);c.clearRect(0,0,W,H);c.fillStyle=slide.bg||'#f7f2e9';c.fillRect(0,0,W,H);
+ if(slide.bgPattern&&slide.bgPattern!=='none'){
+  const hex=(slide.bg||'#f7f2e9').replace('#','');
+  const num=parseInt(hex.length===3?hex.split('').map(x=>x+x).join(''):hex,16)||0xf7f2e9;
+  const lum=(((num>>16)&255)*299+((num>>8)&255)*587+(num&255)*114)/1000;
+  const ink=lum<128?'rgba(255,255,255,0.11)':'rgba(65,50,40,0.09)';
+  c.save();c.strokeStyle=ink;c.fillStyle=ink;c.lineWidth=1;
+  if(slide.bgPattern==='grid'){
+   for(let x=40;x<W;x+=40){c.beginPath();c.moveTo(x,0);c.lineTo(x,H);c.stroke()}
+   for(let y=40;y<H;y+=40){c.beginPath();c.moveTo(0,y);c.lineTo(W,y);c.stroke()}
+  }else if(slide.bgPattern==='dots'){
+   for(let y=32;y<H;y+=36)for(let x=32;x<W;x+=36){c.beginPath();c.arc(x,y,2,0,Math.PI*2);c.fill()}
+  }else if(slide.bgPattern==='lined'){
+   for(let y=72;y<H;y+=48){c.beginPath();c.moveTo(44,y);c.lineTo(W-44,y);c.stroke()}
+  }else if(slide.bgPattern==='grain'){
+   let seed=1337;for(let i=0;i<900;i++){seed=(seed*1664525+1013904223)>>>0;const gx=seed%W;seed=(seed*1664525+1013904223)>>>0;const gy=seed%H;c.fillRect(gx,gy,2,2)}
+  }
+  c.restore();
+ }
  for(const el of slide.elements){if(el.hidden||el.interactiveOnly||(hidePlaceholders&&el.type==='placeholder'))continue;const opacity=el.opacity??1;c.save();c.translate(el.x+el.w/2,el.y+el.h/2);c.rotate((el.rotation||0)*Math.PI/180);c.globalAlpha=opacity;const x=-el.w/2,y=-el.h/2;
  if(el.type==='text') {const size=el.size||48;c.fillStyle=el.color||'#41332c';c.font=`${el.weight||'normal'} ${size}px ${el.family||serif}`;c.textBaseline='top';const m=el.align||'left';c.textAlign=m;const lx=m==='center'?0:m==='right'?el.w/2:-el.w/2;const lines=linesOf(c,el.text,el.w,size);const lh=size*1.33;lines.forEach((line,i)=>{if(i*lh+size>el.h+lh/2)return;c.fillText(line,lx,y+i*lh)});
  }else if(el.type==='shape'){const r=clamp(el.radius||0,0,Math.min(el.w,el.h)/2);c.beginPath();if(el.shape==='circle')c.ellipse(0,0,el.w/2,el.h/2,0,0,Math.PI*2);else c.roundRect(x,y,el.w,el.h,r);if(el.fill&&el.fill!=='transparent'){c.fillStyle=el.fill;c.fill()}if(el.stroke){c.strokeStyle=el.stroke;c.lineWidth=5;c.stroke()}
@@ -949,7 +997,46 @@ function addElement(el){modify(()=>{activeSlide().elements.push(el);selectElemen
 function setProp(key,value){const el=activeSlide().elements[selected];if(!el||el.locked||selectedEntries().length!==1)return;modify(()=>{el[key]=value})}
 function properties(){const entries=selectedEntries(),el=entries.length===1?entries[0].el:null,panel=$('elementProps'),layers=$('layersList');
  const ppt=$('ppt');if(ppt){ppt.dataset.hybridSelection=el?.type|| (entries.length?'multi':'none');ppt.dataset.hybridPage=current===-1?'cover':current===-2?'back':'page';}
- document.dispatchEvent(new CustomEvent('special:editor-selection',{detail:{type:el?.type||(entries.length?'multi':'none'),page:current,count:entries.length}}));panel.replaceChildren();layers.replaceChildren();panel.append(selectionToolbar());if(entries.length){panel.append(layerOrderToolbar());panel.append(alignmentToolbar());}if(selectedEditable().length>=2)panel.append(transformToolbar());
+ document.dispatchEvent(new CustomEvent('special:editor-selection',{detail:{type:el?.type||(entries.length?'multi':'none'),page:current,count:entries.length}}));panel.replaceChildren();layers.replaceChildren();
+ const bgCard=document.createElement('div');bgCard.className='plog-page-card';
+ const bgHead=document.createElement('div');bgHead.className='plog-page-head';
+ const bgTitle=document.createElement('strong');bgTitle.textContent='🎨 当前页底色与色系';
+ const bgAllBtn=document.createElement('button');bgAllBtn.type='button';bgAllBtn.textContent='应用到全部页';
+ bgAllBtn.onclick=()=>{if(!confirm('将当前页的底色和底纹应用到全部正文页吗？'))return;modify(()=>{const curBg=activeSlide().bg||'#f7f2e9',curPat=activeSlide().bgPattern||'none';doc.slides.forEach(s=>{s.bg=curBg;s.bgPattern=curPat})});status('✓ 已统一全部正文页底色与纹理')};
+ bgHead.append(bgTitle,bgAllBtn);
+ const bgRow=document.createElement('div');bgRow.className='plog-bg-row';
+ const bgPick=document.createElement('input');bgPick.type='color';bgPick.value=/^#[0-9a-f]{6}$/i.test(activeSlide().bg||'')?activeSlide().bg:'#f7f2e9';bgPick.title='自定义当前页底色';
+ bgPick.oninput=e=>{activeSlide().bg=e.target.value;redraw()};
+ bgPick.onchange=e=>{const v=e.target.value;modify(()=>{activeSlide().bg=v})};
+ const patSel=document.createElement('select');patSel.title='页底纹理图案';
+ PLOG_BG_PATTERNS.forEach(([v,lbl])=>{const o=document.createElement('option');o.value=v;o.textContent=lbl;patSel.append(o)});
+ patSel.value=activeSlide().bgPattern||'none';
+ patSel.onchange=()=>modify(()=>{activeSlide().bgPattern=patSel.value});
+ bgRow.append(bgPick,patSel);
+ const palBox=document.createElement('div');palBox.className='plog-palettes';
+ PLOG_PALETTES.forEach(pal=>{
+  const row=document.createElement('div');row.className='plog-palette-row';
+  const nm=document.createElement('span');nm.textContent=pal.name;
+  const dots=document.createElement('div');dots.className='plog-palette-dots';
+  pal.colors.forEach((col,idx)=>{
+   const dot=document.createElement('button');dot.type='button';dot.style.background=col;
+   dot.title=(idx===0?'设为页底色：':'点击设为页底（若已选中文字/色块则上色）：')+col;
+   dot.onclick=()=>{
+    const cur=activeSlide().elements[selected];
+    if(idx>0&&cur&&!cur.locked&&(cur.type==='text'||cur.type==='shape')){
+     setProp(cur.type==='text'?'color':'fill',col);
+    }else{
+     modify(()=>{activeSlide().bg=col});
+     status('✓ 已将页底切换为「'+pal.name+'」配色');
+    }
+   };
+   dots.append(dot);
+  });
+  row.append(nm,dots);palBox.append(row);
+ });
+ bgCard.append(bgHead,bgRow,palBox);
+ panel.append(bgCard);
+ panel.append(selectionToolbar());if(entries.length){panel.append(layerOrderToolbar());panel.append(alignmentToolbar());}if(selectedEditable().length>=2)panel.append(transformToolbar());
  const field=(name,key,value,kind='text',onChange=null)=>{const wrap=document.createElement('div');wrap.className='prop-line';const label=document.createElement('label');label.textContent=name;const input=document.createElement(kind==='textarea'?'textarea':'input');if(kind!=='textarea')input.type=kind;input.value=value??'';input.addEventListener(kind==='textarea'?'change':'change',()=>onChange?onChange(input.value):setProp(key,kind==='number'?Number(input.value):input.value));wrap.append(label,input);return wrap};
  if(!el){const p=document.createElement('p');p.className='v127-selection-info';p.textContent=entries.length?`已选择 ${entries.length} 个图层（Shift / Ctrl 点击多选）。组合可共同移动，双击单个图层编辑。`:'选中图层可编辑。Shift / Ctrl 点击多选；拖动会显示对齐辅助线。';panel.append(p)}else{
   panel.append(field('名称',null,el.type==='text'?'文字':el.type==='image'?'照片':el.type==='placeholder'?'图片占位':el.type==='video'?'视频回忆卡':el.type==='audio'?'声音纪念卡':'装饰色块','text',()=>{}));
@@ -1309,7 +1396,33 @@ function applyFinalSpread(){
 }
 function templatePreview(){const host=$('templates');host.replaceChildren();
  const pair=document.createElement('button');pair.className='ending-apply-all';pair.type='button';pair.textContent='✦ 一键装订最后的紫金片尾双页';pair.title='最后一组左页为「未完待续」，右页为电影片尾字幕；全部文字可编辑';pair.onclick=applyFinalSpread;
- host.before(pair);for(const data of templateData){const button=document.createElement('button');button.className='template-card';button.title=data.desc;const c=document.createElement('canvas');c.width=176;c.height=236;const name=document.createElement('b');name.textContent=data.name;const label=document.createElement('small');label.textContent=data.cat+' · '+data.desc;button.append(c,name,label);button.onclick=()=>{if(activeSlide().elements.length&&!confirm(`替换「${getSlideLabel(current)}」的内容为「${data.name}」？`))return;modify(()=>{setActiveSlide({bg:data.bg,elements:data.make()});selected=-1});status('已应用模板，可继续修改、上传真实照片')};host.append(button);render({bg:data.bg,elements:data.make()}).then(full=>c.getContext('2d').drawImage(full,0,0,c.width,c.height))}}
+ host.before(pair);
+ const plogTextBox=document.createElement('div');plogTextBox.className='plog-section';
+ plogTextBox.innerHTML='<h4>✦ Plog 文字模板（一键插入可编辑）</h4><p>点击即可把组合标题、日期印章、荧光条或便签插入当前页面</p>';
+ const textGrid=document.createElement('div');textGrid.className='plog-chip-grid';
+ PLOG_TEXT_PRESETS.forEach(item=>{
+  const btn=document.createElement('button');btn.type='button';btn.className='plog-chip-btn';
+  btn.innerHTML='<b>'+item.name+'</b><small>'+item.desc+'</small>';
+  btn.onclick=()=>{modify(()=>{const els=item.make();activeSlide().elements.push(...els);selectElements([activeSlide().elements.length-1],{expandGroup:false})});changeTab('layers');status('✓ 已插入「'+item.name+'」，可自由拖动和改字')};
+  textGrid.append(btn);
+ });
+ plogTextBox.append(textGrid);
+ const plogPatBox=document.createElement('div');plogPatBox.className='plog-section';
+ plogPatBox.innerHTML='<h4>✦ Plog 图案与手账装饰（支持描边/阴影）</h4><p>胶带、拍立得框、邮票框、手绘箭头与星芒，插入后可任意调色描边</p>';
+ const patGrid=document.createElement('div');patGrid.className='plog-chip-grid';
+ PLOG_PATTERNS.forEach(item=>{
+  const btn=document.createElement('button');btn.type='button';btn.className='plog-chip-btn';
+  btn.innerHTML='<b>'+item.name+'</b><small>'+item.desc+'</small>';
+  btn.onclick=()=>{
+   const src=plogSvgUri(item.svg);
+   addElement({...P(Math.round((W-item.w)/2),Math.round((H-item.h)/2),item.w,item.h),type:'image',src,fit:'contain',crop:{x:0,y:0,w:1,h:1},zoom:1,offsetX:0,offsetY:0,scrapbookAsset:true,role:'scrapbook-decoration'});
+   status('✓ 已插入图案「'+item.name+'」');
+  };
+  patGrid.append(btn);
+ });
+ plogPatBox.append(patGrid);
+ host.before(plogTextBox,plogPatBox);
+ for(const data of templateData){const button=document.createElement('button');button.className='template-card';button.title=data.desc;const c=document.createElement('canvas');c.width=176;c.height=236;const name=document.createElement('b');name.textContent=data.name;const label=document.createElement('small');label.textContent=data.cat+' · '+data.desc;button.append(c,name,label);button.onclick=()=>{if(activeSlide().elements.length&&!confirm(`替换「${getSlideLabel(current)}」的内容为「${data.name}」？`))return;modify(()=>{setActiveSlide({bg:data.bg,elements:data.make()});selected=-1});status('已应用模板，可继续修改、上传真实照片')};host.append(button);render({bg:data.bg,elements:data.make()}).then(full=>c.getContext('2d').drawImage(full,0,0,c.width,c.height))}}
 let mediaReplaceFor=null;
 function mediaAllowed(file,type){return file&&((type==='video'?(['video/mp4','video/webm'].includes(file.type)||/\.(mp4|webm)$/i.test(file.name)):(file.type.startsWith('audio/')||/\.(mp3|m4a|wav|ogg|aac)$/i.test(file.name))));}
 async function frameFromVideo(file){return new Promise(resolve=>{const video=document.createElement('video'),url=URL.createObjectURL(file);let settled=false;const done=src=>{if(settled)return;settled=true;video.pause();video.removeAttribute('src');video.load();URL.revokeObjectURL(url);resolve(src)};const timeout=setTimeout(()=>done(null),5000);video.preload='auto';video.muted=true;video.playsInline=true;video.onloadedmetadata=()=>{try{video.currentTime=Math.min(.25,Math.max(.01,(video.duration||1)/3))}catch(e){clearTimeout(timeout);done(null)}};video.onseeked=()=>{try{const cv=document.createElement('canvas'),w=640;cv.width=w;cv.height=Math.max(1,Math.round(w*(video.videoHeight||360)/(video.videoWidth||640)));cv.getContext('2d').drawImage(video,0,0,cv.width,cv.height);clearTimeout(timeout);done(cv.toDataURL('image/jpeg',.8))}catch(e){clearTimeout(timeout);done(null)}};video.onerror=()=>{clearTimeout(timeout);done(null)};video.src=url;video.load()})}
